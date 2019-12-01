@@ -47,7 +47,15 @@ namespace WebAPIService
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            //app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=ToDoItems}/{action=Index}");
+            });
+
+
         }
     }
 }

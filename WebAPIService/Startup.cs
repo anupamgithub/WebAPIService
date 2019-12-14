@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using WebAPIService.Model;
 using Microsoft.EntityFrameworkCore;
 using ToDoApi.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Google;
 
 namespace WebAPIService
 {
@@ -32,6 +34,19 @@ namespace WebAPIService
               opt.UseInMemoryDatabase("TodoList"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IToDoRepository, ToDoRepository>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            })
+                    .AddGoogle(options =>
+                    {
+                        options.ClientId = "[]";
+                        options.ClientSecret = "[ ]";
+                    });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,13 +62,18 @@ namespace WebAPIService
             }
 
             app.UseHttpsRedirection();
-            //app.UseMvc();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=ToDoItems}/{action=Index}");
-            });
+
+            // enable authentication via UseAuthentication().
+            app.UseAuthentication();
+            app.UseMvc();
+
+            app.UseMvc();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=ToDoItems}/{action=Index}");
+            //});
 
 
         }

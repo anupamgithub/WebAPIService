@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPIService;
@@ -15,6 +17,7 @@ namespace ToDoApi.Controllers
     {
         public  IToDoRepository _toDoRepository;
         private readonly TodoContext _context;
+       
 
         //public ToDoItemsController(IToDoRepository toDoRepository)
         //{
@@ -29,6 +32,7 @@ namespace ToDoApi.Controllers
 
 
        [HttpGet]
+  
         public IActionResult List()
         {
             return Ok(_toDoRepository.All);
@@ -76,9 +80,10 @@ namespace ToDoApi.Controllers
         }
 
         // GET: Test
-       
+       // [HttpGet]
         public async Task<IActionResult> Index()
         {
+         
             return View(await _context.TodoItems.ToListAsync());
         }
 

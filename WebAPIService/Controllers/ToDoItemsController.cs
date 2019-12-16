@@ -31,7 +31,7 @@ namespace ToDoApi.Controllers
         }
 
 
-       [HttpGet]
+       //[HttpGet]
   
         public IActionResult List()
         {
@@ -81,7 +81,7 @@ namespace ToDoApi.Controllers
         }
 
         // GET: Test
-       // [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
          //devops test

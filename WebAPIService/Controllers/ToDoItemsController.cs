@@ -70,7 +70,7 @@ namespace ToDoApi.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] TodoItem todoItem)
         {
-            //comment
+          
             if (ModelState.IsValid)
             {
                 _context.Add(todoItem);

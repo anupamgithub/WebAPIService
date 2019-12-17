@@ -73,6 +73,7 @@ namespace ToDoApi.Controllers
           
             if (ModelState.IsValid)
             {
+                var test = "sssdsds";
                 _context.Add(todoItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
